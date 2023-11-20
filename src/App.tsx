@@ -9,11 +9,15 @@ import reset from "styled-reset"
 import { useEffect, useState } from "react"
 import LoadingScreen from "./components/loading-screen"
 import { auth } from "./firebase"
+import ProtectedRoute from "./components/protected-route"
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element : <Layout />,
+    // 이게 가능한 이유는 protectedRoute 컴포넌트에서 children을 받고 있기 때문!
+    element : <ProtectedRoute>
+      <Layout />
+    </ProtectedRoute>,
     children : [
       {
         path : "",
@@ -42,6 +46,7 @@ ${reset};
 }
 body{
   background-color: black;
+  color : white;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 `

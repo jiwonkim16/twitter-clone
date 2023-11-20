@@ -1,5 +1,8 @@
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { useState } from "react"
 import styled from "styled-components"
+import { auth } from "../firebase"
+import { useNavigate } from "react-router-dom"
 
 const Wrapper = styled.div`
 height: 100%;
@@ -47,6 +50,7 @@ function CreateAccount() {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const navigate = useNavigate()
   const onChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
     const {target : {name, value}} = e;
     if(name === "name"){
@@ -58,21 +62,28 @@ function CreateAccount() {
     }
   }
 
-  const onSubmit = (e : React.FormEvent<HTMLFormElement>)=>{
+  const onSubmit = async(e : React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
+    // input의 값이 비어있다면 코드 실행 x
+    if(isLoading || name === "" || email === "" || password === "") return;
     // 계정 생성 및 사용자의 프로필 이름 설정, 홈페이지로 리다이렉트
     try{
-
+      setLoading(true)
+      // firebase에서 제공해주는 createUserWithEmailAndPassword 함수는 인증 인스턴스를 첫번째 인자로 받고 이메일과 비밀번호를 필요로 한다.
+      const credentials = await createUserWithEmailAndPassword(auth, email, password)
+      console.log(credentials.user)
+      // firebase에서 제공하는 updateProfile 함수는 업데이트 할 유저 정보와 표시되는 이름을 무엇으로 바꿀건지를 인자로 받는다.
+      await updateProfile(credentials.user, {displayName : name})
+      navigate("/")
     }catch(e){
       // setError(e)
     }finally{
       setLoading(false)
     }
-    console.log(name, email, password)
   }
   return (
     <Wrapper>
-      <Title>Log into 𝕏</Title>
+      <Title>Join 𝕏</Title>
       <Form onSubmit={onSubmit}>
         <Input onChange={onChange} name="name" value={name} placeholder="Name" type="text" required />
         <Input onChange={onChange} name="email" value={email} placeholder="Email" type="email" required />
