@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDQW_2AhNnHiCC8Dqfc_IJhXtYrBVZveYQ",
@@ -10,4 +11,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// 도메인, api key 등 여러 키값이 포함된 config 옵션을 통해 app 을 생성하고
 const app = initializeApp(firebaseConfig);
+
+// 그 app에 대한 인증 서비스를 사용하고 싶다!
+export const auth = getAuth(app)
