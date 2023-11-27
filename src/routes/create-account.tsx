@@ -4,6 +4,7 @@ import { auth } from "../firebase"
 import { Link, useNavigate } from "react-router-dom"
 import { FirebaseError } from "firebase/app"
 import { Error, Form, Input, Switcher, Title, Wrapper } from "../components/auth-components"
+import GithubBtn from "../components/github-btn"
 
 function CreateAccount() {
   const [isLoading, setLoading] = useState(false)
@@ -56,6 +57,7 @@ function CreateAccount() {
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
       <Switcher>Already have an account?<Link to="/login">Log in &rarr; </Link></Switcher>
+      <GithubBtn />
     </Wrapper>
   )
 }
