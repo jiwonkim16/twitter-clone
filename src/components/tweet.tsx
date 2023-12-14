@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { ITweet } from "./timeline";
 
 const Wrapper = styled.div`
@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 15px;
+  margin-top: 10px;
 `;
 
 const Column = styled.div``;
@@ -27,7 +28,7 @@ const Payload = styled.p`
   font-size: 18px;
 `;
 
-function Tweet({ username, photo, tweet }: ITweet) {
+export default function Tweet({ username, photo, tweet }: ITweet) {
   return (
     <Wrapper>
       <Column>
@@ -42,5 +43,3 @@ function Tweet({ username, photo, tweet }: ITweet) {
     </Wrapper>
   );
 }
-
-export default Tweet;

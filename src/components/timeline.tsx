@@ -1,6 +1,6 @@
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { db } from "../firebase";
 import Tweet from "./tweet";
 
@@ -13,31 +13,28 @@ export interface ITweet {
   createdAt: number;
 }
 
-const Wrapper = styled.div`
-  display: grid;
-`;
+const Wrapper = styled.div``;
 
-function Timeline() {
-  const [tweets, setTweets] = useState<ITweet[]>([]);
+export default function Timeline() {
+  const [tweets, setTweet] = useState<ITweet[]>([]);
   const fetchTweets = async () => {
-    const tweetQuery = query(
+    const tweetsQuery = query(
       collection(db, "tweet"),
-      orderBy("createAt", "desc")
+      orderBy("createdAt", "desc")
     );
-    const snapshot = await getDocs(tweetQuery);
-    const tweets = snapshot.docs.map((doc) => {
-      const { tweet, userId, username, photo, createdAt } = doc.data();
-      // 그 다음 ITweet 에 부합하는 트윗 객체를 반환한다.
+    const spanshot = await getDocs(tweetsQuery);
+    const tweets = spanshot.docs.map((doc) => {
+      const { tweet, createdAt, userId, username, photo } = doc.data();
       return {
         tweet,
+        createdAt,
         userId,
         username,
         photo,
-        createdAt,
         id: doc.id,
       };
     });
-    setTweets(tweets);
+    setTweet(tweets);
   };
   useEffect(() => {
     fetchTweets();
@@ -50,5 +47,3 @@ function Timeline() {
     </Wrapper>
   );
 }
-
-export default Timeline;
