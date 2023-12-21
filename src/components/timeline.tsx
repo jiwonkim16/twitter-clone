@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   display: flex;
   gap: 10px;
   flex-direction: column;
+  overflow-y: scroll;
 `;
 
 export default function Timeline() {
@@ -32,7 +33,7 @@ export default function Timeline() {
     let unsubscribe: Unsubscribe | null = null;
     const fetchTweets = async () => {
       const tweetsQuery = query(
-        collection(db, "tweet"),
+        collection(db, "tweets"),
         orderBy("createdAt", "desc"),
         limit(25)
       );
