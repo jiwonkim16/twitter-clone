@@ -9,3 +9,10 @@
 
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat&logo=Visual Studio Code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white" />
+
+### 🔥 세부기능
+
+1. 깃허브 로그인
+2. 트윗 + 이미지 등록
+3. 트윗 삭제 기능
+4. 프로필 이미지 등록 / 수정
